@@ -6,7 +6,7 @@
 -- 4) по-умолчанию центр объекта = точка (0,0), мы установим центр экрана
 -- 5) запустить приложение (Crtl+R перезапуск)
 
-local background = display.newImageRect("background.png", 360, 570)
+local background = display.newImageRect("background.png", 640, 960)
 background.x = display.contentCenterX
 background.y = display.contentCenterY
 
