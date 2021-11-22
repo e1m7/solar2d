@@ -3,7 +3,7 @@
 
 local tapCount = 0
 
-local background = display.newImageRect("background.png", 360, 570)
+local background = display.newImageRect("background.png", 640, 960)
 background.x = display.contentCenterX
 background.y = display.contentCenterY
 
@@ -13,12 +13,12 @@ background.y = display.contentCenterY
 -- 3) tapCount = начальное значение
 -- 4) display.contentCenterX, 20 = по центру экрана от верха на 20 пикселов
 -- 5) native.systemFont = системный шрифт (цвет по-умолчанию белый)
--- 6) 40 = размер шрифта
+-- 6) 80 = размер шрифта
 -- 7) setFillColor(0,0,0) = черный цвет
 
 
-local tapText = display.newText(tapCount, display.contentCenterX, 20, native.systemFont, 40)
-tapText:setFillColor(0,0,0)
+local tapText = display.newText(tapCount, display.contentCenterX, 220, native.systemFont, 80)
+tapText:setFillColor(1,1,1)
 
 local platform = display.newImageRect("platform.png", 300, 50)
 platform.x = display.contentCenterX
