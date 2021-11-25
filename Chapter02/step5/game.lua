@@ -166,9 +166,16 @@ local function restoreShip()
 end
 -- insert #10
 
+-- функция endGame() = коенц игры
+-- 1) возврат в меню (с эффектом перехода)
+
 local function endGame(event)
   composer.gotoScene("menu", { time = 800, effect = "crossFade" })
 end
+
+-- функция onCollision() = обнаружение столкновений
+-- 1) если жизни == 0, то надо удалить кораблик
+-- 2) если жизни == 0, то надо вызвать функцию endGame() через 2 секунды
 
 -- insert #11
 local function onCollision(event)
@@ -198,6 +205,7 @@ local function onCollision(event)
         livesText.text = "Lives: " .. lives
         if (lives == 0) then
           display.remove(ship)
+          timer.performWithDelay(2000, endGame)                       -- добавить строчку
         else
           ship.alpha = 0
           timer.performWithDelay(1000, restoreShip)
@@ -255,10 +263,6 @@ function scene:create(event)
   ship:addEventListener("touch", dragShip)
 end
 
--- Начинаем показывать сцену
--- Начинаем показывать сцену
--- Начинаем показывать сцену
-
 -- Замечание: scene:create() вызывается один раз (на сцену все расставляется)
 -- Замечание: scene:show() вызывается два раза (каком именно раз показывает event.phase)
 -- 1) когда сцена готова к показу, сразу после scene:create() (это фаза event.phase == "will")
@@ -280,17 +284,22 @@ function scene:show(event)
   end
 end
 
--- Проверка кода: запустить, выбрать start и игра запустится
--- Проверка кода: запустить, выбрать start и игра запустится
--- Проверка кода: запустить, выбрать start и игра запустится
+-- правим scene:hide()
+-- 1) когда фаза == will, надо остановить игровой таймер
+-- 2) когда фаза == did, надо 
+--   а) остановить прослушивание столкновений
+--   б) поставить физику на паузу
+-- 3) удалить сцену из памяти
 
 function scene:hide(event)
   local sceneGroup = self.view
   local phase = event.phase
   if (phase == "will") then
-    -- Код для сцены, которая скоро скроется с экрана
+    timer.cancel(gameLoopTimer)
   elseif (phase == "did") then
-    -- Код для сцены, когда она скроется на экрана
+    Runtime:removeEventListener("collision", onCollision)
+    physics.pause()
+    composer.removeScene("game")
   end
 end
 

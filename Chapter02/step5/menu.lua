@@ -1,13 +1,15 @@
 
+-- Добавить эффекты перехода
+
 local composer = require("composer")
 local scene = composer.newScene()
 
 local function gotoGame()
-  composer.gotoScene("game")
+  composer.gotoScene("game", { time = 800, effect = "crossFade" })             -- добавить
 end
 
 local function gotoHighScores()
-  composer.gotoScene("highscores")
+  composer.gotoScene("highscores", { time = 800, effect = "crossFade" })       -- добавить
 end
 
 function scene:create(event)
